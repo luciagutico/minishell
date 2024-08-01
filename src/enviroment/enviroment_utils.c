@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 16:50:26 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/07/31 19:48:30 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/01 19:04:01 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ t_env *create_node(char *name, char *value)
 {
 	t_env *new_node;
 	
+	if (!name)
+		return (NULL);
 	new_node = malloc(sizeof(t_env));
 	//FREE FUNCTION PENDING
 	if (!new_node)
-		return(NULL);
+		return(free(new_node), NULL);
 	new_node->var_name = name;
 	new_node->var_value = value;
 	new_node->next = NULL;
@@ -64,5 +66,6 @@ void free_env_list(t_env **env_list)
 		env_list = node;
 	}
 }
+
 
 
