@@ -6,13 +6,13 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 19:30:12 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/01 20:56:05 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/02 14:03:55 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// the main ill consist of 3 principal functions 
+// the main will consist of 3 principal functions 
 // one where we set up the shell, the env, the files, all we need.
 // The 2nd will be we crated to loop trhough the shell and mantain the
 ///active status of the shell or go out of it,
