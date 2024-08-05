@@ -1,0 +1,6 @@
+# PSEUDO CODE FOR TOKENISATION
+
+for a basic command, such as: "ls -l | grep "foo" >> output.txt"
+
+Step 1: read input
+- declare two buffers char *bu |ffer and char *tokens;
