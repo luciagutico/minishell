@@ -6,12 +6,14 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 16:50:31 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/01 21:23:25 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/02 19:33:21 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
+static int add_to_env_list(char *env_var, t_env **head);
+//core function where the environment list gets build
 t_env	*init_env(char **env)
 {
 	t_env	*env_list;
@@ -50,7 +52,7 @@ static int add_to_env_list(char *env_var, t_env **head)
 			content = ft_calloc(1, 1);
 		new_var = create_node(name, content);
 		if (!new_var)
-			return(free(name), free(content), NULL);
+			return(free(name), free(content), 1);
 		append_env_list(head, new_var);
 	}
 	return (0);
@@ -120,7 +122,7 @@ int main(int ac, char**av, char **envp)
 		printf("envp set up was sucessfull");
 	else
 		printf("envp couldnt be intialized");
-	free_env_list(envp);
+	free_env_list(&env);
 	if (!env)
 		printf("envp set up and freeing went sucesfull");
 }

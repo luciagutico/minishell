@@ -6,11 +6,11 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/01 19:30:12 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/02 14:03:55 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/02 18:34:34 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 // the main will consist of 3 principal functions 
 // one where we set up the shell, the env, the files, all we need.
@@ -21,6 +21,7 @@ int main(int ac, char **av, char **envp)
 {
 	t_shell	*shell;
 	(void) av;
+	(void) ac;
 	
 	shell = set_up_shell(envp);
 	if (!shell)

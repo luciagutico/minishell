@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 14:46:57 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/01 20:54:17 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/02 19:36:31 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ typedef	struct s_env
 
 typedef struct s_shell
 {
-	char 	*env;
+	char 	**env;
 	t_env	*own_env;
 }	t_shell;
 //ENVIROMENT
 /*Enviroment functions*/
 t_env		*init_env(char **env);
-static int	add_to_env_list(char *env_var, t_env **head);
 char 		*get_var(char *name, t_env	*env);
 char 		*get_var_name(char *env_var);
 char 		*get_var_content(char *env_var);
@@ -42,4 +41,8 @@ t_env 		*create_node(char *name, char *value);
 void 		append_env_list(t_env **head, t_env *new_node);
 void 		free_env_list(t_env **env_list);
 void 		free_node(t_env *node);
+
+//minishell
+t_shell *set_up_shell(char **envp);
+
 #endif
