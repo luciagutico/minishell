@@ -18,22 +18,18 @@ typedef struct {
 void	extract_tokens(Prompt *prompt)
 {
 	int j = 0;
-	while (prompt->buffer[j])
+	while (prompt->buffer[j] != '\0')
 	{
-		while (prompt->buffer[j] != ' ')
-		{
-			prompt->i += 1;
+		while (prompt->buffer[j] != ' ' && prompt->buffer[j] != '\0')
 			j++;
-		}
 		Token *token = malloc(sizeof(Token));
-		token->value = malloc(sizeof(char) * prompt->i-j);
-		token->value[j] = '\0';
-		j--;
-		while (j > (j - prompt->i))
+		token->value = malloc(sizeof(char) * (j - prompt->i));
+		while (prompt->i < j && prompt->buffer[prompt->i] != '\0')
 		{
-			token->value[j] = prompt->buffer[j];
-			j--;
+			token->value[prompt->i] = prompt->buffer[prompt->i];
+			prompt->i += 1;
 		}
+		token->value[prompt->i] = '\0';
 		printf("%s", token->value);
 		j++;
 	}

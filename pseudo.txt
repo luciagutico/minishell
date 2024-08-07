@@ -1,6 +1,59 @@
 # PSEUDO CODE FOR TOKENISATION
 
-for a basic command, such as: "ls -l | grep "foo" >> output.txt"
+STEP 1: define my structures in a .h file
 
-Step 1: read input
-- declare two buffers char *bu |ffer and char *tokens;
+I need a struct s_token, with
+- token_id (type of data)
+- token_value (the actual characters)
+- next (pointer to the next)
+
+I need a struct typedef enum t_token_type with the different possible types: 
+  TOKEN (in case of error)
+  PIPE
+  SQUOTE
+  DQUOTE
+  REDIRECT_IN
+  REDIRECT_OUT
+  REDIRECT_APPEND
+  SPACE?
+  WORD
+
+I need an array with all possible special characters in my token_types (except words). 
+This array will be used to dereference the characters in my input string. 
+If not found, it's a word.
+
+STEP 2: Analyse the input
+
+Reading the input string character by characters,
+I define the token_type for each step:
+
+my_tokenizer function: 
+takes the input
+First, initialize a head node to NULL where I will store in a linked list all my future tokens. 
+initialize a cursor going through the input string.
+Loop through the input string until different than NULL
+call a helper function to create a new node (token_list_new)
+call a helper function to analyse each character and fill_token_info (described below)
+Add the t_token node to the back of the list, sending the top and the current node
+In the end, my_tokenizer returns the head node. 
+
+fill_token_info function:
+takes the input string, the current position in the string and our node.
+initialize a new interator, start_pos, equal to the current_pos at first, to keep track of our starting position.
+the token_id is set using a function get_char_id, which takes in the char at current position and returns its value, dereferencing the set_delimiters array, initiating the value at first to the index 1 token_type, 
+then iterating until value != WORD, if set_delimiters[value] == c, break, return value)
+then a new function is executed, with a jump table: this jump table has a function for each token_type. Depending on the token_type, the behavior varies:
+(each of these calls the same function which determines the char_id)
+- for a PIPE: while i < 2 && we're in the string, and the value is |, increment. 
+- for a quote (single or double): increment position and while (string && value is !=)
+- for a redirection (in or out)
+- for a SPACE:
+- for a WORD: while value is the same, increment position. 
+Note that I'm always working with pos, which is the same and derefenced in each function. 
+After this step, I have a token_type and its length, knowing the starting position.
+I created the token_value by creating a substring with current_pos - start_pos.
+
+STEP 3: Syntax checker
+
+The syntax checker should work similarly to the tokeniser, in the sense that is it build around
+helper functions, listed on the set_delimiters types, and for each corresponding type, a specific syntax check is done.
