@@ -38,7 +38,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*str;
-	s_token			*next;
+	struct s_token	*next;
 }	t_token;
 
 //struct to manage enviroment
@@ -57,11 +57,13 @@ typedef struct s_shell
 }	t_shell;
 
 //ENVIROMENT
+
 /*Enviroment functions*/
 t_env		*init_env(char **env);
 char 		*get_var(char *name, t_env	*env);
 char 		*get_var_name(char *env_var);
 char 		*get_var_content(char *env_var);
+
 /*Enviroment utils*/
 t_env 		*create_node(char *name, char *value);
 void 		append_env_list(t_env **head, t_env *new_node);
@@ -70,6 +72,12 @@ void 		free_node(t_env *node);
 
 /*tokenization functions*/
 t_token	*create_new_token(void);
+void	token_list_add_back(t_token **token_list_head, t_token *new_token);
+t_token *token_list_find_last(t_token *token_list_node);
+t_token	*extract_tokens(char *input_str);
+void	fill_token_info(int *current_pos, char *input_str, t_token **new_token);
+void	get_token_type(char c);
+
 //minishell
 t_shell *set_up_shell(char **envp);
 

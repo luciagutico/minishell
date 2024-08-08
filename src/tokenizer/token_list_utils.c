@@ -1,4 +1,6 @@
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
+
+// TODO: leverage libft functions instead -> replace with my libft
 
 // This function creates a new node
 t_token	*create_new_token(void)
@@ -12,17 +14,22 @@ t_token	*create_new_token(void)
 	return (new);
 }
 
-t_token	*token_list_add_back(t_token *token_list_head, t_token *new_token)
+// This function add a node to the list.
+void	token_list_add_back(t_token **token_list_head, t_token *new_token)
 {
 	if (token_list_head == NULL)
-		token_list_head = new_token;
+		return ;
+	if (*token_list_head == NULL)
+		*token_list_head = new_token;
 	else
-	
-	
-
-	return (token_list_head);
+	{
+		t_token *temp;
+		temp = token_list_find_last(*token_list_head);
+		temp->next = new_token;
+	}
 }
 
+// This function finds the last node in the list
 t_token *token_list_find_last(t_token *token_list_node)
 {
 	if (token_list_node == NULL)
