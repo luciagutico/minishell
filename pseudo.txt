@@ -13,7 +13,7 @@ I need a struct typedef enum t_token_type with the different possible types:
   SQUOTE
   DQUOTE
   REDIRECT_IN
-  REDIRECT_OUT
+  REDIRECT_OUT 
   REDIRECT_APPEND
   SPACE?
   WORD
@@ -31,7 +31,7 @@ my_tokenizer function:
 takes the input
 First, initialize a head node to NULL where I will store in a linked list all my future tokens. 
 initialize a cursor going through the input string.
-Loop through the input string until different than NULL
+Loop through the input string until different than NULL
 call a helper function to create a new node (token_list_new)
 call a helper function to analyse each character and fill_token_info (described below)
 Add the t_token node to the back of the list, sending the top and the current node

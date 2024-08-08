@@ -16,8 +16,33 @@
 # include <unistd.h>
 # include <stdio.h>
 # include "libft/libft.h"
+# include <stdlib.h> // to malloc
+# include <readline/readline.h> // to read prompt
+# include <readline/history.h> // to read prompt
+
+// tokenization
+
+typedef enum s_token_type
+{
+	TOKEN,
+	PIPE,
+	S_QUOTE,
+	D_QUOTE,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	REDIRECT_OUT_APPEND,
+	WORD,
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*str;
+	s_token			*next;
+}	t_token;
 
 //struct to manage enviroment
+
 typedef	struct s_env
 {
 	char 			*var_name;
@@ -30,6 +55,7 @@ typedef struct s_shell
 	char 	**env;
 	t_env	*own_env;
 }	t_shell;
+
 //ENVIROMENT
 /*Enviroment functions*/
 t_env		*init_env(char **env);
@@ -42,6 +68,8 @@ void 		append_env_list(t_env **head, t_env *new_node);
 void 		free_env_list(t_env **env_list);
 void 		free_node(t_env *node);
 
+/*tokenization functions*/
+t_token	*create_new_token(void);
 //minishell
 t_shell *set_up_shell(char **envp);
 
