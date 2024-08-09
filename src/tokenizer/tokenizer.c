@@ -1,19 +1,38 @@
 #include "../../includes/minishell.h"
 
-void	get_token_type(char c)
+get_full_token(int *current_pos, char *input_str, int value);
+
+int	get_token_hint(char c)
 {
-	char	*set_type[] = {'-', '|', '\'', '"', '<', '>', '>>'};
-
-
-
+	char	set_type[] = {'-', '|', '\'', '\"', '<', '>' };
+	
+	int value = 0;
+	while (value < 7) 
+	{
+		if (c == set_type[value])
+			break;
+		value++;
+	}
+	return (value);
 }
 
 void	fill_token_info(int *current_pos, char *input_str, t_token **new_token)
 {
 	int	start_pos;
+	int	token_hint;
 
 	start_pos = *current_pos;
-	get_token_type(input_str[*current_pos]);
+	token_hint = get_token_hint(input_str[*current_pos]);
+	char *(*get_full_token[])(int *, char *, int) {
+		[TOKEN] = function
+		[PIPE] =
+		[S_QUOTE] =
+		[D_QUOTE] =
+		[REDIRECT_IN] = 
+		[REDIRECT_OUT] =
+		[WORD] =
+
+	};
 }
 
 // This function extracts the tokens from the input string.
