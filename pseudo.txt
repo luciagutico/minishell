@@ -53,6 +53,15 @@ Note that I'm always working with pos, which is the same and derefenced in each 
 After this step, I have a token_type and its length, knowing the starting position.
 I created the token_value by creating a substring with current_pos - start_pos.
 
+How to make a jumptable of functions in C?
+Example:
+static int (*activities[])(t_philo *) = {
+->return value (the different choices, a number enum)(the arguments)
+		[EATING] = &eat;
+		[SLEEPING] = &my_sleep; 
+		-> [state] = &myfunction 
+	}
+
 STEP 3: Syntax checker
 
 The syntax checker should work similarly to the tokeniser, in the sense that is it build around
