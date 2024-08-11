@@ -32,7 +32,6 @@ $(NAME): $(OBJS) $(LIB42_TARGET)
 	@echo $(Blue) minishell Compiled ✅ $(Color_Off)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@echo "Compiling $< into $@"
 	@mkdir -p $(dir $@)
 	cc $(CFLAGS) -c $< -o $@
 
