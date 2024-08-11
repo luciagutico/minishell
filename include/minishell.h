@@ -78,8 +78,9 @@ t_token	*extract_tokens(char *input_str);
 void	fill_token_info(int *current_pos, char *input_str, t_token *new_token);
 int		get_token_hint(char c);
 void	pipe_token(int *current_pos, char *input_str, char c);
-void	single_quote_token(int *current_pos, char *input_str, char c);
+void	quote_token(int *current_pos, char *input_str, char c);
 void	redirect_token(int *current_pos, char *input_str, char c);
+void	word_token(int *current_pos, char *input_str, char c);
 
 //minishell
 t_shell *set_up_shell(char **envp);

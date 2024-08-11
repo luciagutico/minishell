@@ -27,16 +27,20 @@ void	redirect_token(int *current_pos, char *input_str, char c)
 	}
 }
 
-void	single_quote_token(int *current_pos, char *input_str, char c)
+void	quote_token(int *current_pos, char *input_str, char c)
 {
-	int i;
 	if (!input_str)
 		return ;
 	(*current_pos)++;
-	i = 0;
 	while (input_str[*current_pos] && input_str[*current_pos] != c)
-	{
 		(*current_pos)++;
-		i++;
-	}
+	if (input_str[*current_pos])
+		(*current_pos)++;
+}
+// TODO: if i add a syntax checker here, what are the rules? should i check for unclosed quote herE?
+
+void	word_token(int *current_pos, char *input_str, char c)
+{
+	while (input_str[*current_pos] && input_str[*current_pos] == get_token_hint(c))
+		(*current_pos)++;
 }
