@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../include/minishell.h"
 
 int	get_token_hint(char c)
 {
@@ -17,23 +17,22 @@ int	get_token_hint(char c)
 void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 {
 	int	start_pos;
-	int	token_hint;
 
 	start_pos = *current_pos;
 	new_token->type = get_token_hint(input_str[*current_pos]);
-	void (*get_full_token[])(int *, char *, char, t_token *) =
+	void (*get_full_token[])(int *, char *, char) =
 	{
 		[TOKEN] = NULL,
 		[PIPE] = pipe_token,
-		[S_QUOTE] = NULL,
+		[S_QUOTE] = single_quote_token,
 		[D_QUOTE] = NULL,
 		// [REDIRECT_IN] = redirect_in_token,
 		[REDIRECT_OUT] = NULL,
 		[WORD] = NULL
 	};
-	get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos], new_token);
-	// (*new_token)->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos) + 1));
-	// printf("%s", (*new_token)->str);
+	get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);
+	new_token->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos) + 1));
+	printf("%s", new_token->str);
 
 }
 

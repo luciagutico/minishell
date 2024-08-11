@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "../../include/minishell.h"
 
 // TODO: leverage libft functions instead -> replace with my libft
 

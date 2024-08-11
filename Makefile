@@ -1,38 +1,70 @@
-NAME = minishell
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-SRC_DIR = src/
-SRCS = $(SRC_DIR)minishell.c
+# --------------- Makefile ------------ #
 
-ENVIROMENT_DIR = $(SRC_DIR)enviroment/
-ENVIROMENT_SRC = $(ENVIROMENT_DIR)enviroment.c \
-			   $(ENVIROMENT_DIR)enviroment_utils.c \
+NAME			:= minishell
 
-			
+# ----------- Source and object files ------------- #
 
-ALL_SRCS = $(SRCS) $(ENVIROMENT_SRC)
-OBJS = $(SRCS:.c=.o)
-LIBFT = includes/libft/libft.a
-RM = rm -f
+SRC_DIR			:= src
+SRCS			:= tokenizer/tokenizer.c tokenizer/tokenizer_utils.c tokenizer/token_list_utils.c
+SRCS			:= $(addprefix $(SRC_DIR)/, $(SRCS))
+
+OBJ_DIR			:= .build
+OBJS			:= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+# --------------- Libraries and header files ------------- #
+
+INC_DIR				:= include/42_lib
+
+LIB42_DIR			:= include/42_lib
+LIB42_TARGET		:= include/42_lib/libftprintfgnl.a
+
+# --------------- Flags --------------- #
+
+CFLAGS				:= -Wall -Wextra -Werror -I$(INC_DIR)
+RM					:= rm -rf
+
+# --------- Compilation/rules --------- #
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIB42_TARGET)
+	cc $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(LIB42_TARGET)
+	@echo $(Blue) minishell Compiled ✅ $(Color_Off)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@echo "Compiling $< into $@"
+	@mkdir -p $(dir $@)
+	cc $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	make -C includes/libft
+$(LIB42_TARGET):
+	@$(MAKE) -C $(LIB42_DIR)
+	@echo $(Blue) 42_Lib Complete ✅ $(Color_Off)
+
+# ----------- Cleaning rules ---------- #
 
 clean:
-	$(RM) $(OBJS)
+	$(MAKE) -C include/42_lib clean
+	$(RM) $(OBJ_DIR)
+	@echo $(Dark_Pink) Cleaning complete.. 💥 $(Color_Off)
 
 fclean: clean
+	$(MAKE) -C include/42_lib fclean
 	$(RM) $(NAME)
-	make -C includes/libft fclean
+	@echo $(Dark_Pink) Thorough cleaning complete.. 💥 $(Color_Off)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# ----------- Specific rules ---------- #
+
+print-%:
+	$(info '$*'='$($*)')
+
+.PHONY: clean fclean re new all
+
+# ----------- Color codes ---------- #
+
+Color_Off	= "\033[0m"
+Blue		= "\033[38;5;68m"
+Yellow		= "\033[38;5;230m"
+Pink		= "\033[38;5;218m"
+Dark_Pink	= "\033[38;5;175m"
