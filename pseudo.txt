@@ -66,3 +66,13 @@ STEP 3: Syntax checker
 
 The syntax checker should work similarly to the tokeniser, in the sense that is it build around
 helper functions, listed on the set_delimiters types, and for each corresponding type, a specific syntax check is done.
+
+
+STEP 4: Handle redirections
+if the first index of the token string is < it means its append at a specific point (cf HERE du heredoc)
+return a simple IN otherwise.
+if str[0] == > 
+	if str[1] == '>'
+		return append
+	return OUT.
+return 0;

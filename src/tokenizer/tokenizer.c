@@ -26,8 +26,8 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[PIPE] = pipe_token,
 		[S_QUOTE] = single_quote_token,
 		[D_QUOTE] = NULL,
-		// [REDIRECT_IN] = redirect_in_token,
-		[REDIRECT_OUT] = NULL,
+		[REDIRECT_IN] = redirect_token,
+		[REDIRECT_OUT] = redirect_token,
 		[WORD] = NULL
 	};
 	get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);
