@@ -21,6 +21,32 @@
 # include <readline/readline.h> // to read prompt
 # include <readline/history.h> // to read prompt
 
+// parsing
+
+typedef	enum	s_redirection_id
+{
+	REDIR,
+	IN,
+	HERE,
+	OUT,
+	APP,
+}	t_redirection_id;
+
+typedef struct s_redirect
+{
+	char	*file;
+	int		fd;
+	s_redirect *next;
+} t_redirect;
+
+typedef struct s_command
+{
+	char		**args;
+	s_redirect		in;
+	s_redirect		out;
+	s_command	*next;
+}	t_command;
+
 // tokenization
 
 typedef enum s_token_type

@@ -32,8 +32,6 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 	};
 	get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);
 	new_token->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos) + 1));
-	printf("%s", new_token->str);
-
 }
 
 // This function extracts the tokens from the input string.
