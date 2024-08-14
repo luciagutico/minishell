@@ -47,6 +47,7 @@ t_token	*extract_tokens(char *input_str)
 	{
 		new_token = create_new_token();
 		fill_token_info(&current_pos, input_str, new_token);
+		printf("%s\n", new_token->str);
 		token_list_add_back(&token_list_head, new_token);
 		current_pos++;
 	}

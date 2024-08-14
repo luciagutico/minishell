@@ -41,6 +41,6 @@ void	quote_token(int *current_pos, char *input_str, char c)
 
 void	word_token(int *current_pos, char *input_str, char c)
 {
-	while (input_str[*current_pos] && input_str[*current_pos] == get_token_hint(c))
+	while (input_str[*current_pos] && (get_token_hint(input_str[*current_pos] == get_token_hint(c))))
 		(*current_pos)++;
 }

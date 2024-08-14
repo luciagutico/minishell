@@ -20,7 +20,7 @@ LIB42_TARGET		:= include/42_lib/libftprintfgnl.a
 
 # --------------- Flags --------------- #
 
-CFLAGS				:= -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS				:= -Wall -Wextra -Werror -I$(INC_DIR) -g
 RM					:= rm -rf
 
 # --------- Compilation/rules --------- #

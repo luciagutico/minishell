@@ -32,19 +32,18 @@ typedef	enum	s_redirection_id
 	APP,
 }	t_redirection_id;
 
-typedef struct s_redirect
+typedef struct s_redirection
 {
 	char	*file;
 	int		fd;
-	s_redirect *next;
-} t_redirect;
+} t_redirection;
 
 typedef struct s_command
 {
-	char		**args;
-	s_redirect		in;
-	s_redirect		out;
-	s_command	*next;
+	char		**command_args;
+	t_redirection	in;
+	t_redirection	out;
+	struct s_command	*next;
 }	t_command;
 
 // tokenization
