@@ -23,26 +23,27 @@
 
 // parsing
 
-typedef	enum	s_redirection_id
+typedef	enum	s_redirection_type
 {
 	REDIR,
 	IN,
 	HERE,
 	OUT,
 	APP,
-}	t_redirection_id;
+}	t_redirection_type;
 
 typedef struct s_redirection
 {
+	t_redirection_type redir_type;
 	char	*file;
 	int		fd;
-} t_redirection;
+}	t_redirection;
 
-typedef struct s_command
+typedef struct	s_command
 {
 	char		**command_args;
-	t_redirection	in;
-	t_redirection	out;
+	t_redirection		*in;
+	t_redirection		*out;
 	struct s_command	*next;
 }	t_command;
 
@@ -59,7 +60,7 @@ typedef enum s_token_type
 	WORD,
 }	t_token_type;
 
-typedef struct s_token
+typedef struct	s_token
 {
 	t_token_type	type;
 	char			*str;
@@ -106,6 +107,10 @@ void	pipe_token(int *current_pos, char *input_str, char c);
 void	quote_token(int *current_pos, char *input_str, char c);
 void	redirect_token(int *current_pos, char *input_str, char c);
 void	word_token(int *current_pos, char *input_str, char c);
+
+/*parsing functions*/
+t_command	*create_new_command(void);
+void	command_args(t_command *new_command, t_token **current_token);
 
 //minishell
 t_shell *set_up_shell(char **envp);
