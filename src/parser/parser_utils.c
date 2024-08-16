@@ -21,13 +21,6 @@ void	command_args(t_command *new_command, t_token **current_token)
 		i++;
 	}
 	new_command->command_args[i] = NULL;
-
-	i = 0;
-	while (new_command->command_args != NULL && new_command->command_args[i] != NULL)
-	{
-		printf("%s", new_command->command_args[i]);
-		i++;
-	}
 	// i need to allocate for command_args
 	// so i need to know the number of command + flgs before, then calloc for that nume
 

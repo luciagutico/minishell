@@ -32,6 +32,7 @@ t_command *parser(t_token *token_list_head)
 	command_list_head = NULL;
 	new_command = create_new_command();
 	fill_command_info(new_command, &current_token);
+	command_list_add_back(&command_list_head, new_command);
 	// while (current_token != NULL)
 	// {
 	// 	new_command = create_new_command();
@@ -47,7 +48,8 @@ int main(void)
 	t_token *list_token_head;
 	t_token *new;
 	t_token *two;
-	// t_command *test_command;
+	t_command *test_command;
+	test_command = create_new_command();
 	list_token_head = NULL;
 	new = create_new_token();
 	new->type = WORD;
@@ -57,13 +59,13 @@ int main(void)
 	two->type = WORD;
 	two->str = "world";
 	token_list_add_back(&list_token_head, two);
-	parser(list_token_head);
-	// int i = 0;
-	// while (new_command->command_args != NULL && new_command->command_args[i] != NULL)
-	// {
-	// 	printf("%s", new_command->command_args[i]);
-	// 	i++;
-	// }
+	test_command = parser(list_token_head);
+	int i = 0;
+	while (test_command->command_args != NULL && test_command->command_args[i] != NULL)
+	{
+		printf("%s\n", test_command->command_args[i]);
+		i++;
+	}
 
 
 	return (0);

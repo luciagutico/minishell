@@ -12,5 +12,20 @@ t_command	*create_new_command(void)
 	return (new);
 }
 
+void	command_list_add_back(t_command **command_list_head, t_command *new)
+{
+	if (command_list_head == NULL)
+		return ;
+	if ((*command_list_head) == NULL)
+		*command_list_head = new;
+	else
+	{
+		t_command *temp;
+		temp = (t_command *)ft_lstlast((t_list *)command_list_head);
+		temp->next = new;
+	};
+
+}
+
 
 
