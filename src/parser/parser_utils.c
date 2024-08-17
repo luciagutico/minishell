@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	command_args(t_command *new_command, t_token **current_token)
+void	fill_command_args(t_command *new_command, t_token **current_token)
 {
 	int i;
 	t_token	*start;
@@ -21,7 +21,25 @@ void	command_args(t_command *new_command, t_token **current_token)
 		i++;
 	}
 	new_command->command_args[i] = NULL;
-	// i need to allocate for command_args
-	// so i need to know the number of command + flgs before, then calloc for that nume
-
 }
+
+t_redirection_type	get_redirection_type(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '>')
+		{
+			if (str[i + 1] == '>')
+				return ()
+		}
+	}
+}
+
+void	fill_redirection(t_command *new_command, t_token **current_token);
+{
+	get_redirection_type(*current_token->str);
+}
+
