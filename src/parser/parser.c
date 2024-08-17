@@ -12,11 +12,12 @@ void	fill_command_info(t_command *new_command, t_token **current_token)
 			[S_QUOTE] = NULL,
 			[D_QUOTE] = NULL,
 			[REDIRECT_IN] = NULL,
-			[REDIRECT_OUT] = NULL,
+			[REDIRECT_OUT] = fill_redirect_out,
 			[WORD] = fill_command_args,
 		};
 		get_full_command[(*current_token)->type](new_command, current_token);
 		*current_token = (*current_token)->next;
+		// TODO: if i iterate here, it skips the >, but if i don't increment, it is an infinite loop. 
 	}
 }
 
@@ -62,15 +63,16 @@ int main(void)
 	three->str = ">";
 	token_list_add_back(&list_token_head, three);
 	four = create_new_token();
-	four->type = D_QUOTE;
-	three->str = "outfile.txt";
+	four->type = WORD;
+	four->str = "outfile.txt";
 	token_list_add_back(&list_token_head, four);
 	test_command = parser(list_token_head);
 
 	int i = 0;
 	while (test_command->command_args != NULL && test_command->command_args[i] != NULL)
 	{
-		printf("%s\n", test_command->command_args[i]);
+		printf("command.args[%d] = %s\n", i, test_command->command_args[i]);
+		printf("command.out = %s\n", test_command->out->file);
 		i++;
 	}
 

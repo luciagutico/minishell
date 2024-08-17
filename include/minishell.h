@@ -112,6 +112,8 @@ void	word_token(int *current_pos, char *input_str, char c);
 t_command	*create_new_command(void);
 void	fill_command_args(t_command *new_command, t_token **current_token);
 void	command_list_add_back(t_command **command_list_head, t_command *new_command);
+void	fill_redirect_out(t_command *new_command, t_token **current_token);
+t_redirection	*create_redirection(void);
 
 //minishell
 t_shell *set_up_shell(char **envp);

@@ -12,6 +12,17 @@ t_command	*create_new_command(void)
 	return (new);
 }
 
+t_redirection	*create_redirection(void)
+{
+	t_redirection *new = malloc(sizeof(t_redirection) * 1);
+	if (!new)
+		return (NULL);
+	new->redir_type = 0;
+	new->file = NULL;
+	new->fd = 0;
+	return (new);
+}
+
 void	command_list_add_back(t_command **command_list_head, t_command *new)
 {
 	if (command_list_head == NULL)
