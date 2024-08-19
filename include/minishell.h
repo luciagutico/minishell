@@ -114,6 +114,9 @@ void	fill_command_args(t_command *new_command, t_token **current_token);
 void	command_list_add_back(t_command **command_list_head, t_command *new_command);
 void	fill_redirect_out(t_command *new_command, t_token **current_token);
 t_redirection	*create_redirection(void);
+char	*get_file_name(char *file, int end_str, int token_nbr, t_token **current_token);
+t_redirection_type	get_redirection_type(char *str);
+int	get_fd_file(char *file, t_redirection_type REDIR);
 
 //minishell
 t_shell *set_up_shell(char **envp);
