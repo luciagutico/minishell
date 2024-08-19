@@ -4,7 +4,7 @@
 // and calls functions to fill the command node depending on the nature of the token.
 void	fill_command_info(t_command *new_command, t_token **current_token)
 {
-	while ((*current_token)->type != PIPE || *current_token != NULL)
+	while (*current_token != NULL && (*current_token)->type != PIPE)
 	{
 		void (*get_full_command[])(t_command *, t_token	**) =
 		{
@@ -16,7 +16,8 @@ void	fill_command_info(t_command *new_command, t_token **current_token)
 			[WORD] = fill_command_args,
 		};
 		get_full_command[(*current_token)->type](new_command, current_token);
-		*current_token = (*current_token)->next;
+		if (*current_token != NULL)
+			*current_token = (*current_token)->next;
 		// TODO: if i iterate here, it skips the >, but if i don't increment, it is an infinite loop. 
 	}
 }
@@ -35,7 +36,8 @@ t_command *parser(t_token *token_list_head)
 		new_command = create_new_command();
 		fill_command_info(new_command, &current_token);
 		command_list_add_back(&command_list_head, new_command);
-		current_token = current_token->next;
+		if (current_token != NULL)
+			current_token = current_token->next;
 	}
 	return (command_list_head);
 }
@@ -47,6 +49,8 @@ int main(void)
 	t_token *two;
 	t_token *three;
 	t_token *four;
+	t_token *five;
+	t_token *six;
 	t_command *test_command;
 	test_command = create_new_command();
 	list_token_head = NULL;
@@ -64,8 +68,16 @@ int main(void)
 	token_list_add_back(&list_token_head, three);
 	four = create_new_token();
 	four->type = WORD;
-	four->str = "outfile.txt";
+	four->str = "Make";
 	token_list_add_back(&list_token_head, four);
+	five = create_new_token();
+	five->type = WORD;
+	five->str = "fil";
+	token_list_add_back(&list_token_head, five);
+	six = create_new_token();
+	six->type = WORD;
+	six->str = "e";
+	token_list_add_back(&list_token_head, six);
 	test_command = parser(list_token_head);
 
 	int i = 0;
@@ -75,7 +87,5 @@ int main(void)
 		printf("command.out = %s\n", test_command->out->file);
 		i++;
 	}
-
-
 	return (0);
 }

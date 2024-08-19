@@ -50,6 +50,9 @@ char	*get_redirection_file(t_token **current_token)
 	char *file;
 	int i;
 	int j;
+	int str_i;
+	int end_str;
+	int token_nbr;
 	t_token	*token_pos;
 
 	j = 0; // keeps track of how many tokens we traverse
@@ -57,26 +60,29 @@ char	*get_redirection_file(t_token **current_token)
 	*current_token = (*current_token)->next;
 	token_pos = *current_token;
 	// go through the token list until i meet a delimiter
-	while ((*current_token) != NULL && (*current_token)->type != PIPE && (*current_token)->type != REDIRECT_IN && (*current_token)->type != REDIRECT_OUT)
+	while (token_pos != NULL && token_pos->type != PIPE && token_pos->type != REDIRECT_IN && token_pos->type != REDIRECT_OUT)
 	{
 		// go through the string of each token
-		while ((*current_token)->str[i])
-			i++;
+		i += ft_strlen(token_pos->str);
 		j++;
-		*current_token = (*current_token)->next;
+		token_pos = token_pos->next;
 	}
-	file = calloc((i - j) + 1, sizeof(char)); //TODO: protect && separate second part in a different function
-	(*current_token) = token_pos;
+	file = calloc(i + 1, sizeof(char)); //TODO: protect && separate second part in a different function
+	end_str = i;
+	token_nbr = j;
 	i = 0;
-	while ((*current_token) != token_pos)
+	j = 0;
+	str_i = 0;
+	while (j < token_nbr && i < end_str)
 	{
-		j = 0;
-		while ((*current_token)->str[j])
+		str_i = 0;
+		while ((*current_token)->str[str_i] != '\0')
 		{
-			file[i] = (*current_token)->str[j];
-			i++, j++;
+			file[i] = (*current_token)->str[str_i];
+			str_i++, i++;
 		}
 		*current_token = (*current_token)->next;
+		j++;
 	}
 	file[i] = '\0';
 	return (file);
@@ -88,13 +94,13 @@ void	fill_redirect_out(t_command *new_command, t_token **current_token)
 	t_redirection *out;
 	
 	out = create_redirection();
-	while ((*current_token)->type != PIPE && (*current_token) != NULL)
+	while ((*current_token) != NULL && (*current_token)->type != PIPE)
 	{
 		out->redir_type = get_redirection_type((*current_token)->str);
 		out->file = get_redirection_file(current_token);
 	}
 	new_command->out = out;
-	printf("redirection file = %s\n", out->file);
+	printf("redirection file = %s\n", new_command->out->file);
 }
 
 // get the redirection type
