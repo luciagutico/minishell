@@ -2,16 +2,16 @@
 
 int	get_token_hint(char c)
 {
-	char	set_type[] = {'-', '|', '\'', '\"', '<', '>' };
+	char	set_type[] = {'-', '|', ' ', '\'', '\"', '<', '>' };
 	
 	int value = 0;
-	while (value < 6) 
+	while (value < 7)
 	{
 		if (c == set_type[value])
 			break;
 		value++;
 	}
-	return (value); // if c is not in set_type[] will return 6 (WORD)
+	return (value); // if c is not in set_type[] will return 7 (WORD)
 }
 
 void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
@@ -24,6 +24,7 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 	{
 		[TOKEN] = NULL,
 		[PIPE] = pipe_token,
+		[IS_SPACE] = space_token,
 		[S_QUOTE] = quote_token,
 		[D_QUOTE] = quote_token,
 		[REDIRECT_IN] = redirect_token,
@@ -31,7 +32,7 @@ void	fill_token_info(int *current_pos, char *input_str, t_token *new_token)
 		[WORD] = word_token,
 	};
 	get_full_token[new_token->type](current_pos, input_str, input_str[*current_pos]);
-	new_token->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos) + 1));
+	new_token->str = ft_substr(input_str, start_pos, ((*current_pos - start_pos) + 1)); //TODO: there's something wrong here, I'm going one too far
 }
 
 // This function extracts the tokens from the input string.
@@ -51,6 +52,25 @@ t_token	*extract_tokens(char *input_str)
 		current_pos++;
 	}
 	return (token_list_head);
+}
+
+int main(void)
+{
+    char *input_str;
+    t_token *test;
+    t_token *tmp;
+    char *prompt = "minishell > ";
+    input_str = readline(prompt);
+    test = extract_tokens(input_str);
+    tmp = test;
+    int i = 0;
+    while (tmp != NULL)
+    {
+        printf("token %d: %s\n", i, tmp->str);
+        i++;
+        tmp = tmp->next;
+    }
+    return (0);
 }
 
 // int main(void)

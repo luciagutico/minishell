@@ -46,5 +46,9 @@ t_command	*command_list_find_last(t_command *command_list_head)
 	return (command_list_head);
 }
 
+// recognize $
+// make a copy
+// join two strings
+//  fft
 
 

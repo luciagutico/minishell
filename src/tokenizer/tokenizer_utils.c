@@ -4,6 +4,7 @@
 void	pipe_token(int *current_pos, char *input_str, char c)
 {
 	int i;
+	
 	if (!input_str)
 		return ;
 	i = 0;
@@ -14,13 +15,22 @@ void	pipe_token(int *current_pos, char *input_str, char c)
 	}
 }
 
+void	space_token(int *current_pos, char *input_str, char c)
+{
+	if (!input_str)
+		return ;
+	while (input_str[*current_pos + 1] && get_token_hint(input_str[*current_pos + 1]) == get_token_hint(c))
+		(*current_pos)++;
+}
+
 void	redirect_token(int *current_pos, char *input_str, char c)
 {
 	int i;
+	
 	if (!input_str)
 		return ;
 	i = 0;
-	while (i < 3 && input_str[*current_pos] && input_str[*current_pos] == c)
+	while (i < 3 && input_str[*current_pos + 1] && input_str[*current_pos + 1] == c)
 	{
 		(*current_pos)++;
 		i++;
@@ -41,6 +51,6 @@ void	quote_token(int *current_pos, char *input_str, char c)
 
 void	word_token(int *current_pos, char *input_str, char c)
 {
-	while (input_str[*current_pos] && (get_token_hint(input_str[*current_pos] == get_token_hint(c))))
+	while (input_str[*current_pos + 1] && get_token_hint(input_str[*current_pos + 1]) == get_token_hint(c))
 		(*current_pos)++;
 }

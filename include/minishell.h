@@ -53,6 +53,7 @@ typedef enum s_token_type
 {
 	TOKEN,
 	PIPE,
+	IS_SPACE,
 	S_QUOTE,
 	D_QUOTE,
 	REDIRECT_IN,
@@ -107,6 +108,7 @@ void	pipe_token(int *current_pos, char *input_str, char c);
 void	quote_token(int *current_pos, char *input_str, char c);
 void	redirect_token(int *current_pos, char *input_str, char c);
 void	word_token(int *current_pos, char *input_str, char c);
+void	space_token(int *current_pos, char *input_str, char c);
 
 /*parsing functions*/
 t_command	*create_new_command(void);
