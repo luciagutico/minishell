@@ -117,6 +117,7 @@ t_redirection	*create_redirection(void);
 char	*get_file_name(char *file, int end_str, int token_nbr, t_token **current_token);
 t_redirection_type	get_redirection_type(char *str);
 int	get_fd_file(char *file, t_redirection_type REDIR);
+t_command	*command_list_find_last(t_command *command_list_head);
 
 //minishell
 t_shell *set_up_shell(char **envp);

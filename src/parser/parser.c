@@ -18,8 +18,9 @@ void	fill_command_info(t_command *new_command, t_token **current_token)
 		get_full_command[(*current_token)->type](new_command, current_token);
 		if (*current_token != NULL)
 			*current_token = (*current_token)->next;
-		// TODO: if i iterate here, it skips the >, but if i don't increment, it is an infinite loop. 
 	}
+	// if (*current_token != NULL && (*current_token)->type == PIPE)
+	// 		*current_token = (*current_token)->next;
 }
 
 // This function parses the token_list, and fills the command nodes while arranging them in a linked list.
@@ -33,9 +34,14 @@ t_command *parser(t_token *token_list_head)
 	command_list_head = NULL;
 	while (current_token != NULL)
 	{
-		new_command = create_new_command();
-		fill_command_info(new_command, &current_token);
-		command_list_add_back(&command_list_head, new_command);
+		while (current_token != NULL && current_token->type != PIPE)
+		{
+			new_command = create_new_command();
+			fill_command_info(new_command, &current_token);
+			command_list_add_back(&command_list_head, new_command);
+			if (current_token != NULL)
+				current_token = current_token->next;
+		}
 		if (current_token != NULL)
 			current_token = current_token->next;
 	}
@@ -49,8 +55,8 @@ int main(void)
 	t_token *two;
 	t_token *three;
 	t_token *four;
-	t_token *five;
-	t_token *six;
+	// t_token *five;
+	// t_token *six;
 	t_command *test_command;
 	test_command = create_new_command();
 	list_token_head = NULL;
@@ -60,32 +66,40 @@ int main(void)
 	token_list_add_back(&list_token_head, new);
 	two = create_new_token();
 	two->type = WORD;
-	two->str = "-e";
+	two->str = "output.txt"; //TODO: what if there is no redirection, how do you find the filename? it would just 
 	token_list_add_back(&list_token_head, two);
 	three = create_new_token();
-	three->type = REDIRECT_OUT;
-	three->str = ">";
+	three->type = PIPE;
+	three->str = "|";
 	token_list_add_back(&list_token_head, three);
 	four = create_new_token();
 	four->type = WORD;
-	four->str = "Make";
+	four->str = "wc -l";
 	token_list_add_back(&list_token_head, four);
-	five = create_new_token();
-	five->type = WORD;
-	five->str = "fil";
-	token_list_add_back(&list_token_head, five);
-	six = create_new_token();
-	six->type = WORD;
-	six->str = "e";
-	token_list_add_back(&list_token_head, six);
+	// five = create_new_token();
+	// five->type = WORD;
+	// five->str = "fil";
+	// token_list_add_back(&list_token_head, five);
+	// six = create_new_token();
+	// six->type = WORD;
+	// six->str = "e";
+	// token_list_add_back(&list_token_head, six);
 	test_command = parser(list_token_head);
-
-	int i = 0;
-	while (test_command->command_args != NULL && test_command->command_args[i] != NULL)
-	{
-		printf("command.args[%d] = %s\n", i, test_command->command_args[i]);
-		printf("command.out = %s\n", test_command->out->file);
-		i++;
-	}
+	// int i = 0;
+	// while (test_command->command_args != NULL && test_command->command_args[i] != NULL)
+	// {
+	// 	printf("command.args[%d] = %s\n", i, test_command->command_args[i]);
+	// 	printf("command.out = %s\n", test_command->out->file);
+	// 	i++;
+	// }
 	return (0);
 }
+
+//TODO: check if parsing with "cat output.txt" works (that is, if filename is not after redirection tokens)
+// int main(void)
+// {
+// 	char *args[] =  {"/usr/bin/cat", "output.txt", NULL};
+// 	execve("/usr/bin/cat", args, NULL);
+// 	perror("execve");
+// 	return (0);
+// }

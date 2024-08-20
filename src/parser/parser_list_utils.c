@@ -32,10 +32,18 @@ void	command_list_add_back(t_command **command_list_head, t_command *new)
 	else
 	{
 		t_command *temp;
-		temp = (t_command *)ft_lstlast((t_list *)command_list_head);
+		temp = command_list_find_last(*command_list_head);
 		temp->next = new;
 	};
+}
 
+t_command	*command_list_find_last(t_command *command_list_head)
+{
+	if (command_list_head == NULL)
+		return (NULL);
+	while (command_list_head->next != NULL)
+		command_list_head = command_list_head->next;
+	return (command_list_head);
 }
 
 
