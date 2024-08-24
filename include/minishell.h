@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 14:46:57 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/02 19:36:31 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/24 17:50:57 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_redirection
 	t_redirection_type redir_type;
 	char	*file;
 	int		fd;
+	struct s_redirection	*next;
+	
 }	t_redirection;
 
 typedef struct	s_command
@@ -81,6 +83,8 @@ typedef struct s_shell
 {
 	char 	**env;
 	t_env	*own_env;
+	int		write_fd;
+	int		read_fd;
 }	t_shell;
 
 //ENVIROMENT
@@ -88,14 +92,12 @@ typedef struct s_shell
 /*Enviroment functions*/
 t_env		*init_env(char **env);
 char 		*get_var(char *name, t_env	*env);
-char 		*get_var_name(char *env_var);
-char 		*get_var_content(char *env_var);
-
-/*Enviroment utils*/
-t_env 		*create_node(char *name, char *value);
+char 		*get_name(char *env_var);
+char 		*get_value(char *env_var);
+t_env 		*var_union(char *name, char *value);
 void 		append_env_list(t_env **head, t_env *new_node);
-void 		free_env_list(t_env **env_list);
-void 		free_node(t_env *node);
+void 		free_list(t_env **env_list);
+void 		free_element(t_env *node);
 
 /*tokenization functions*/
 t_token	*create_new_token(void);

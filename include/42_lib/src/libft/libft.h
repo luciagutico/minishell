@@ -6,7 +6,7 @@
 /*   By: jguacide <jguacide@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/23 11:30:50 by jguacide      #+#    #+#                 */
-/*   Updated: 2023/11/03 16:28:04 by jguacide      ########   odam.nl         */
+/*   Updated: 2024/08/24 12:47:09 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+
+// PART 3 - Minishell additonal functions
+char 				*ft_strncpy(char *dest, const char *src, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
+char 				*ft_strcpy(char *dest, char *src);
 
 // BONUS
 

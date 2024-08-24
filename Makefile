@@ -5,7 +5,8 @@ NAME			:= minishell
 # ----------- Source and object files ------------- #
 
 SRC_DIR			:= src
-SRCS			:= tokenizer/tokenizer.c tokenizer/tokenizer_utils.c tokenizer/token_list_utils.c parser/parser.c parser/parser_list_utils.c parser/parser_utils.c
+SRCS			:= minishell/minishell.c tokenizer/tokenizer.c tokenizer/tokenizer_utils.c tokenizer/token_list_utils.c parser/parser.c parser/parser_list_utils.c parser/parser_utils.c \
+					enviroment/enviroment.c enviroment/enviroment_utils.c
 SRCS			:= $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR			:= .build

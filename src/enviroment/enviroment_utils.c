@@ -6,66 +6,82 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 16:50:26 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/01 19:04:01 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/24 21:56:49 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../../include/minishell.h"
 
-//CREATE FUNCTION OT FREE IN CASE OF FAILURE
-t_env *create_node(char *name, char *value)
+t_env *var_union(char *name, char *value)
 {
-	t_env *new_node;
+	t_env *mix;
 	
 	if (!name)
 		return (NULL);
-	new_node = malloc(sizeof(t_env));
-	//FREE FUNCTION PENDING
-	if (!new_node)
-		return(free(new_node), NULL);
-	new_node->var_name = name;
-	new_node->var_value = value;
-	new_node->next = NULL;
-	return(new_node);
+	mix = malloc(sizeof(t_env));
+	if (!mix)
+		return (NULL);
+	mix->var_name = name;
+	if (!mix->var_name)
+		return(free(mix), NULL);
+	mix->var_value = value;
+	if (!mix->var_value)
+		return (free(mix->var_name), free(mix), NULL);
+	return(mix);
 }
 
-void append_env_list(t_env **head, t_env *new_node)
+void append_env_list(t_env **head, t_env *element_to_add)
 {
 	t_env *current_node;
 	
-	if (!new_node || head)
-		return(NULL);
-	if (!*head)
+	if (element_to_add == NULL || head == NULL)
+		return ;
+	if (*head == NULL)
 	{
-		*head = new_node;
-		return;
+		*head = element_to_add;
+		return ;
 	}
 	current_node = *head;
 	while (current_node->next)
 		current_node = current_node->next;
-	current_node->next = new_node;
+	current_node->next = element_to_add;
 }
-void free_node(t_env *node)
+void free_element(t_env *element)
 {
-	if (node)
+	if (element != NULL)
 	{
-		free(node->var_value);
-		free(node->var_name);
-		free(node);
+		if (element->var_value)
+			free(element->var_value);
+		if (element->var_name)
+			free(element->var_name);
+		free(element);
 	}
 }
 
-void free_env_list(t_env **env_list)
+void free_list(t_env **list)
 {
 	t_env *node;
 
-	while (*env_list)
+	if (list == NULL)
+		return ;
+	while (*list)
 	{
-		node = (*env_list)->next;
-		free_node(*env_list);
-		env_list = node;
+		node = (*list)->next;
+		free_element(*list);
+		*list = node;
 	}
 }
 
+void print_env_linked_list(t_env *list)
+{
+	printf("ENVP:");
+	while(list != NULL)
+	{
+		printf("%s", list->var_name);
+		printf("=");
+		printf("%s\n", list->var_value);
+		list = list->next;
+	}
+}
 
 

@@ -6,53 +6,54 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 16:50:31 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/02 19:33:21 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/24 16:34:19 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../include/minishell.h"
 
 static int add_to_env_list(char *env_var, t_env **head);
 //core function where the environment list gets build
 t_env	*init_env(char **env)
 {
-	t_env	*env_list;
+	t_env	*list;
 	int 	i;
 
-	if (!env)
+	if (env == NULL)
 		return (NULL);
-	env_list = NULL;
+	list = NULL;
 	i = 0;
 	
-	while (env[i])
+	while (env[i++])
 	{
-		if (add_to_env_list(env[i], &env_list) != 0)
+		if (add_to_env_list(env[i], &list) != 0)
 		{
-			if (env_list)
-				free_env_list(&env_list);
+			if (list)
+			{
+				free_list(&list);
 				return (NULL);
+			}
 		}
-		i++;
 	}
-	return (env_list);
+	return (list);
 }
 static int add_to_env_list(char *env_var, t_env **head)
 {
 	char 	*name;
-	char 	*content;
+	char 	*value;
 	t_env 	*new_var;
 	
-	name = get_var_name(env_var);
-	if (!name)
+	name = get_name(env_var);
+	if (name == NULL)
 		return (1);
 	else
 	{
-		content = get_var_content(env_var);
-		if (!content)
-			content = ft_calloc(1, 1);
-		new_var = create_node(name, content);
+		value = get_value(env_var);
+		if (value == NULL)
+			value = ft_calloc(1, 1);
+		new_var = var_union(name, value);
 		if (!new_var)
-			return(free(name), free(content), 1);
+			return(free(name), free(value), 1);
 		append_env_list(head, new_var);
 	}
 	return (0);
@@ -71,58 +72,41 @@ char *get_var(char *name, t_env	*env)
 }
 
 // figure out a way to free in case of malloc failure
-char *get_var_name(char *env_var)
+char *get_name(char *var)
 {
-	int 	i;
-	char 	*name;
+	int 		i;
+	char 		*name;
+	const int	name_len = ft_strlen(var);
 
 	i = 0;
-
-	while (env_var[i] && env_var[i] != '=')
+	if (name_len == 0)
+		return (NULL);
+	while (var[i] && var[i] != '=')
 		i++;
-	if (i == 0 || env_var[i] != '=')
+	if (i == 0)
 		return(NULL);
-	name = malloc(i + 1);
+	if (i == name_len)
+		return (NULL);
+	name = ft_substr(var, 0, i);
 	if (!name)
-		return(NULL);
-	ft_strncpy(name, env_var, i);
-	name[i] = '\0';
+		return (NULL);
 	return(name);
 }
-char *get_var_content(char *env_var)
+char *get_value(char *var)
 {
-	int 	i;
-	char 	*content;
+	int 		i;
+	char 		*value;
+	const int	len = ft_strlen(var);
 
 	i = 0;
-
-	while (env_var[i] && env_var[i] != '=')
+	while (var[i] && var[i] != '=')
 		i++;
-	if (env_var[i] == '=')
-		i++;
-	content = malloc(ft_strlen(env_var + i) + 1);
-	if (content == NULL)
+	if (i == len)
 		return (NULL);
-	ft_strcpy(content, env_var + i);
-	return (content);
-}
-
-
-//main to test
-
-int main(int ac, char**av, char **envp)
-{
-	t_env *env;
-	
-	(void) ac;
-	(void) av;
-
-	env = init_env(envp);
-	if (env)
-		printf("envp set up was sucessfull");
-	else
-		printf("envp couldnt be intialized");
-	free_env_list(&env);
-	if (!env)
-		printf("envp set up and freeing went sucesfull");
+	if (var[i] && var[i + 1])
+	{
+		value = ft_substr(var, i + 1, len - 1 - i);
+		return (value);
+	}
+	return(NULL);
 }

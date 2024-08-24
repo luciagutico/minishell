@@ -54,24 +54,24 @@ t_token	*extract_tokens(char *input_str)
 	return (token_list_head);
 }
 
-int main(void)
-{
-    char *input_str;
-    t_token *test;
-    t_token *tmp;
-    char *prompt = "minishell > ";
-    input_str = readline(prompt);
-    test = extract_tokens(input_str);
-    tmp = test;
-    int i = 0;
-    while (tmp != NULL)
-    {
-        printf("token %d: %s\n", i, tmp->str);
-        i++;
-        tmp = tmp->next;
-    }
-    return (0);
-}
+// int main(void)
+// {
+//     char *input_str;
+//     t_token *test;
+//     t_token *tmp;
+//     char *prompt = "minishell > ";
+//     input_str = readline(prompt);
+//     test = extract_tokens(input_str);
+//     tmp = test;
+//     int i = 0;
+//     while (tmp != NULL)
+//     {
+//         printf("token %d: %s\n", i, tmp->str);
+//         i++;
+//         tmp = tmp->next;
+//     }
+//     return (0);
+// }
 
 // int main(void)
 // {
