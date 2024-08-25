@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 14:46:57 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/24 17:50:57 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/25 12:09:35 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,11 @@ typedef	struct s_env
 
 typedef struct s_shell
 {
-	char 	**env;
-	t_env	*own_env;
-	int		write_fd;
-	int		read_fd;
+	char 		**env;
+	t_env		*own_env;
+	int			write_fd;
+	int			read_fd;
+	t_command	*cmd_chain;
 }	t_shell;
 
 //ENVIROMENT
@@ -122,6 +123,9 @@ char	*get_file_name(char *file, int end_str, int token_nbr, t_token **current_to
 t_redirection_type	get_redirection_type(char *str);
 int	get_fd_file(char *file, t_redirection_type REDIR);
 t_command	*command_list_find_last(t_command *command_list_head);
+
+/*executer functions*/
+void handle_single_command(t_shell *shell);
 
 //minishell
 t_shell *set_up_shell(char **envp);

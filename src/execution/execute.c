@@ -1,12 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   execute_non_builtin.c                              :+:    :+:            */
+/*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/08/24 21:43:26 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/25 11:52:01 by anagutie      ########   odam.nl         */
+/*   Created: 2024/08/25 12:04:25 by anagutie      #+#    #+#                 */
+/*   Updated: 2024/08/25 12:10:31 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
+
+void execution(t_shell *shell)
+{
+	if (shell->cmd_chain == 1)
+		handle_single_command(shell->cmd_chain);
+		
+}
