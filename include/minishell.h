@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 14:46:57 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/25 12:09:35 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/26 13:01:09 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 
 typedef	enum	s_redirection_type
 {
-	REDIR,
+	REDIR = 0,
 	IN,
-	HERE,
 	OUT,
+	HERE,
 	APP,
 }	t_redirection_type;
 

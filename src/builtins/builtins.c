@@ -6,8 +6,10 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/22 12:58:32 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/22 12:59:32 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/26 14:53:46 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+

@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/24 21:42:30 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/25 13:15:02 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/26 14:04:35 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ void execute_one_child(t_shell *shell, t_command *command)
 	pid_t	child;
 
 	child = fork();
+	if (child == -1)
+	{
+		
+	}
+	if (child == 0)
+	{
+		
+	}
 	
 }
 
@@ -36,5 +44,10 @@ void handle_single_command(t_shell *shell)
 	{
 		
 	}
-	execute_one_child(shell, single_cmd);
+	else if ()
+	{
+		//builtin
+	}
+	else
+		execute_one_child(shell, single_cmd);
 }
