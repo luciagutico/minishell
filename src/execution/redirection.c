@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/22 18:08:06 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/26 14:55:55 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/29 15:45:32 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ int here_doc_redirection(t_shell *shell, t_redirection *node)
 	
 }
 
-void execute_redirection(t_shell *shell, t_redirection *node)
+void execute_redirection(t_shell *shell, t_command *command)
 {
+	t_redirection *node;
+
+	node->redir_type = command;
+	
 	if (node->redir_type == IN)
 		infile_redirection(node, shell);
 	else if (node->redir_type == OUT)

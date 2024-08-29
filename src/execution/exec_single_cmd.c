@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/24 21:42:30 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/26 14:04:35 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/29 16:45:52 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,19 @@ void handle_single_command(t_shell *shell)
 	//FOR EMPTY ARG
 	if (single_cmd->command_args[0] == NULL)
 	{
-		
+		while(single_cmd->command_args != NULL)
+		{single_cmd->next != 
+			
+		}
+		open(single_cmd->in);
+		if (shell->read_fd != STDIN_FILENO)
+			dup2(shell->read_fd, STDIN_FILENO);
+		if (shell->write_fd != STDOUT_FILENO)
+			dup2(shell->write_fd, STDOUT_FILENO);
 	}
-	else if ()
-	{
-		//builtin
-	}
+	else if (single_cmd->command_args)
+		handle_builtin(shell, single_cmd);
 	else
 		execute_one_child(shell, single_cmd);
 }
+

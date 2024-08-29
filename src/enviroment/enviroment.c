@@ -6,13 +6,13 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 16:50:31 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/24 16:34:19 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/28 15:57:00 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int add_to_env_list(char *env_var, t_env **head);
+static int add_to_env_list(char *env, t_env **head);
 //core function where the environment list gets build
 t_env	*init_env(char **env)
 {
@@ -23,7 +23,6 @@ t_env	*init_env(char **env)
 		return (NULL);
 	list = NULL;
 	i = 0;
-	
 	while (env[i++])
 	{
 		if (add_to_env_list(env[i], &list) != 0)
