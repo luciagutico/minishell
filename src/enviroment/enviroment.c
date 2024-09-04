@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 16:50:31 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/28 15:57:00 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/30 14:40:29 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_env	*init_env(char **env)
 		return (NULL);
 	list = NULL;
 	i = 0;
-	while (env[i++])
+	while (env[i])
 	{
 		if (add_to_env_list(env[i], &list) != 0)
 		{
@@ -33,6 +33,7 @@ t_env	*init_env(char **env)
 				return (NULL);
 			}
 		}
+		i++;
 	}
 	return (list);
 }
@@ -109,3 +110,27 @@ char *get_value(char *var)
 	}
 	return(NULL);
 }
+
+// int main(int argc, char **argv, char **envp) 
+// {
+// 	(void)argc;
+// 	(void)argv;
+//     t_env *env_list;
+
+//     // Initialize environment linked list
+//     env_list = init_env(envp);
+
+//     // Print the linked list to check if everything is loaded correctly
+//     print_env_linked_list(env_list);
+
+//     // Free the environment list to check if memory is managed correctly
+//     free_list(&env_list);
+
+//     // Optionally, you can check if the list was correctly freed
+//     if (env_list == NULL)
+//         printf("Environment list successfully freed!\n");
+//     else
+//         printf("Failed to free environment list.\n");
+
+//     return 0;
+// }

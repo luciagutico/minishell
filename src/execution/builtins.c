@@ -6,13 +6,13 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/08/22 12:58:32 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/29 17:41:22 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/30 16:29:36 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int handle_builtin(t_shell *shell, t_command *cmd)
+int execute_builtin(t_shell *shell, t_command *cmd)
 {
 	if (!cmd || cmd->command_args[0])
 		return (0);
@@ -36,9 +36,9 @@ int handle_builtin(t_shell *shell, t_command *cmd)
 	return(0);
 }
 
-int	execute_cd()
+int	execute_cd(t_env *env)
 {
-	
+	char *path = 
 }
 int	execute_echo()
 {
@@ -57,10 +57,12 @@ int execute_env()
 {
 	
 }
-int execute_exit()
+int execute_exit(t_env *env)
 {
+	print_env_linked_list(env);
 	
 }
+
 int execute_unset()
 {
 	

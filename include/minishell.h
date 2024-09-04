@@ -6,7 +6,7 @@
 /*   By: anagutie <anagutie@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/07/30 14:46:57 by anagutie      #+#    #+#                 */
-/*   Updated: 2024/08/29 16:06:01 by anagutie      ########   odam.nl         */
+/*   Updated: 2024/08/30 16:00:52 by anagutie      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_shell
 	t_command	*cmd_chain;
 }	t_shell;
 
-//ENVIROMENT
+extern int shell_status;
 
 /*Enviroment functions*/
 t_env		*init_env(char **env);
@@ -99,6 +99,7 @@ t_env 		*var_union(char *name, char *value);
 void 		append_env_list(t_env **head, t_env *new_node);
 void 		free_list(t_env **env_list);
 void 		free_element(t_env *node);
+void 	print_env_linked_list(t_env *list);
 
 /*tokenization functions*/
 t_token	*create_new_token(void);
